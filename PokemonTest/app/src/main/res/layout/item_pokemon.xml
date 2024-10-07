@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_item_pokemon"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:elevation="12dp"
-        android:layout_gravity="center"
         android:id="@+id/cardView"
-        app:cardCornerRadius="80dp"
+        android:layout_width="@dimen/size_image"
+        android:layout_height="@dimen/size_image"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_image"
+        android:background="@color/design_default_color_surface"
+        android:elevation="@dimen/image_elevation"
         android:innerRadius="0dp"
         android:shape="ring"
-        android:thicknessRatio="1.9">
+        android:thicknessRatio="1.9"
+        app:cardCornerRadius="@dimen/image_radius">
 
         <ImageView
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
             android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
-        </ImageView>
-
+            android:layout_centerHorizontal="true"
+            android:background="@color/white"/>
 
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        android:id="@+id/name"
+        android:gravity="center"
+        android:textSize="15sp"
+        />
 
 </LinearLayout>

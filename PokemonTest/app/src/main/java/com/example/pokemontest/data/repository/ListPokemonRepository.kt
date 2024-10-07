@@ -1,6 +1,8 @@
 package com.example.pokemontest.data.repository
 
 import com.example.pokemontest.data.Pokemon
+import com.example.pokemontest.data.ResponsePokemonDetails
+import retrofit2.Response
 import javax.inject.Inject
 
 class ListPokemonRepository @Inject constructor(private val apiListPokemonService: ListPokemonService) {
@@ -11,4 +13,7 @@ class ListPokemonRepository @Inject constructor(private val apiListPokemonServic
         return list
     }
 
+    suspend fun getPokemonDetails(name: String): ResponsePokemonDetails? {
+        return apiListPokemonService.getPokemonDetails(name).body()
+    }
 }
