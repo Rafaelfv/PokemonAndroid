@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.pokemontest.databinding.FragmentListPokemonBinding
+import com.example.pokemontest.presenter.ui.adapters.AdapterListPokemon
 import com.example.pokemontest.presenter.viewmodels.FragmentListViewModel
 import javax.inject.Inject
 
@@ -15,6 +16,7 @@ class FragmentListPokemon: Fragment() {
     private lateinit var binding: FragmentListPokemonBinding
     @Inject
     lateinit var viewModel: FragmentListViewModel
+    lateinit var adapter: AdapterListPokemon
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,15 @@ class FragmentListPokemon: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getListPokemon()
+        viewModel.getListPokemon(25)
+
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        viewModel.currentList.observe(viewLifecycleOwner) { pokemonList ->
+            adapter = AdapterListPokemon(pokemonList)
+            binding.recyclerView.adapter = adapter
+        }
     }
 }

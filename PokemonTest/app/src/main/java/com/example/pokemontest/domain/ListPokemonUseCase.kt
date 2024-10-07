@@ -11,7 +11,7 @@ class ListPokemonUseCase @Inject constructor(private val repository: ListPokemon
     suspend fun getListPokemon(offset: String): NewResource<MutableList<Pokemon>?> {
         return try {
             val response = repository.getListPokemon(offset)
-            if (response.isNullOrEmpty()) {
+            if (!response.isNullOrEmpty()) {
                 NewResource.success(response)
             } else {
                 NewResource.error(Fault(0, message = "message"), null) // todo create sealed class to setup error messages
