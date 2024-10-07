@@ -10,9 +10,11 @@ import com.example.pokemontest.databinding.ItemPokemonBinding
 
 class AdapterListPokemon :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     var list: MutableList<Pokemon> = mutableListOf()
     private lateinit var context: Context
     var onItemClick: ((Pokemon) -> Unit)? = null
+    var onBottomReached: ((Boolean) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding: ItemPokemonBinding = ItemPokemonBinding.inflate(
@@ -28,6 +30,10 @@ class AdapterListPokemon :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ItemViewHolder).bind(list[position], context)
+
+        if (position == list.size - 1) {
+            onBottomReached?.invoke(true)
+        }
     }
 
     fun updateList(pokemonList: List<Pokemon>?) {

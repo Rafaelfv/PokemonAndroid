@@ -1,6 +1,7 @@
 package com.example.pokemontest.presenter.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class FragmentListPokemon: Fragment() {
 
     private val offset = 25
+    private var counter = 1
     private lateinit var binding: FragmentListPokemonBinding
     @Inject
     lateinit var viewModel: FragmentListViewModel
@@ -39,9 +41,13 @@ class FragmentListPokemon: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getListPokemon(offset)
+        viewModel.getListPokemon(offset*counter)
         binding.recyclerView.adapter = adapter
 
+        adapter.onBottomReached = {
+            counter++
+            viewModel.getListPokemon(offset*counter)
+        }
         setupObservers()
     }
 
