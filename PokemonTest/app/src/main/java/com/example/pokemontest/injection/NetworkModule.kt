@@ -13,6 +13,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
+import javax.inject.Named
+import javax.inject.Singleton
 
 
 @Module
@@ -24,7 +26,8 @@ object NetworkModule {
      * @return the Post service implementation.
      */
     @Provides
-
+    @Singleton
+    @Named("ApiPokemon")
     internal fun providePostApi(retrofit: Retrofit): ApiPokemon {
         return retrofit.create(ApiPokemon::class.java)
     }

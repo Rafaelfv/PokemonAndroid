@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.pokemontest.databinding.FragmentListPokemonBinding
 import com.example.pokemontest.presenter.viewmodels.FragmentListViewModel
+import javax.inject.Inject
 
 class FragmentListPokemon: Fragment() {
 
     private lateinit var binding: FragmentListPokemonBinding
-    private lateinit var viewModel: FragmentListViewModel
+    @Inject
+    lateinit var viewModel: FragmentListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,12 +25,13 @@ class FragmentListPokemon: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentListPokemonBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getListPokemon()
     }
 }

@@ -9,8 +9,8 @@ import retrofit2.http.Query
 interface ApiPokemon {
 
     @Headers("Accept: application/json")
-    @GET("pokemon?offset=20&limit=20")
+    @GET("pokemon")
     suspend fun getListPokemon(
-        @Query("limit") limit: String = "25", @Query("offset") offset: String = "25",
+        @Query("limit") limit: String = "25", @Query("offset") offset: String = "25"
     ): Response<ResponseListPokemon>
 }
