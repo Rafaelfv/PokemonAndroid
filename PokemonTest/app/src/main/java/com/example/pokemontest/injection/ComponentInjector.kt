@@ -15,8 +15,5 @@ interface ComponentInjector {
     interface Builder {
         fun build(): ComponentInjector
         fun networkModule(networkModule: NetworkModule): Builder
-        //fun servicesModule(servicesModule: ServicesModule): Builder
-        //@BindsInstance
-        //fun application(application: Application): Builder
     }
 }

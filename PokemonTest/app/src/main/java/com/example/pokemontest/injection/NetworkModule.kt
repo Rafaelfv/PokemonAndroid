@@ -38,7 +38,7 @@ object NetworkModule {
     @JvmStatic
     internal fun provideRetrofitInterface(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl("https://pokeapi.co/api/v2/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttpClient)
