@@ -1,18 +1,12 @@
 package com.example.pokemontest
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.pokemontest.databinding.ActivityMainBinding
-import com.example.pokemontest.presenter.ui.FragmentListPokemon
+import com.example.pokemontest.presenter.ui.fragments.FragmentListPokemon
 
 class MainActivity : AppCompatActivity() {
 

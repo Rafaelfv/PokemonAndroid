@@ -10,7 +10,9 @@ import com.example.pokemontest.databinding.ItemPokemonBinding
 
 class AdapterListPokemon(var list: List<Pokemon>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     private lateinit var context: Context
+    var onItemClick: ((Pokemon) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding: ItemPokemonBinding = ItemPokemonBinding.inflate(
@@ -28,12 +30,15 @@ class AdapterListPokemon(var list: List<Pokemon>) :
         (holder as ItemViewHolder).bind(list[position], context)
     }
 
-
-    class ItemViewHolder(private val binding: ItemPokemonBinding) :
+    inner class ItemViewHolder(private val binding: ItemPokemonBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pokemon: Pokemon, context: Context) {
             Glide.with(context).load(pokemon.details?.sprites?.frontDefault).into(binding.imageView)
             binding.name.text = pokemon.name
+
+            binding.root.setOnClickListener {
+                onItemClick?.invoke(list[adapterPosition])
+            }
         }
     }
 }
