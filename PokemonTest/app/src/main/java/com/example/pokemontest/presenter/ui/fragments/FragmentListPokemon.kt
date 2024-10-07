@@ -14,14 +14,16 @@ import com.example.pokemontest.presenter.viewmodels.FragmentListViewModel
 import com.example.pokemontest.utils.Constants.Companion.KEY_POKEMON_DETAIL
 import javax.inject.Inject
 
-class FragmentListPokemon: Fragment() {
+class FragmentListPokemon : Fragment() {
 
     private val offset = 25
     private var counter = 1
     private lateinit var binding: FragmentListPokemonBinding
+
     @Inject
     lateinit var viewModel: FragmentListViewModel
     private lateinit var adapter: AdapterListPokemon
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,18 +43,24 @@ class FragmentListPokemon: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getListPokemon(offset*counter)
+        getListPokemon(offset*counter)
         binding.recyclerView.adapter = adapter
 
         adapter.onBottomReached = {
             counter++
-            viewModel.getListPokemon(offset*counter)
+            getListPokemon(offset*counter)
         }
         setupObservers()
     }
 
+    private fun getListPokemon(currentOffset: Int) {
+        viewModel.getListPokemon(currentOffset)
+        binding.progressCircular.visibility = View.VISIBLE
+    }
+
     private fun setupObservers() {
         viewModel.currentList.observe(viewLifecycleOwner) { pokemonList ->
+            binding.progressCircular.visibility = View.GONE
             adapter.updateList(pokemonList)
             adapter.onItemClick = { pokemon ->
                 val bundle = Bundle()
