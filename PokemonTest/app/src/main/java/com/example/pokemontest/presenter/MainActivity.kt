@@ -1,10 +1,11 @@
-package com.example.pokemontest
+package com.example.pokemontest.presenter
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.pokemontest.R
 import com.example.pokemontest.databinding.ActivityMainBinding
 import com.example.pokemontest.presenter.ui.fragments.FragmentListPokemon
 

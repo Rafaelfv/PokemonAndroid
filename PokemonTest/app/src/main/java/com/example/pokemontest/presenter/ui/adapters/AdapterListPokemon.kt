@@ -8,9 +8,9 @@ import com.bumptech.glide.Glide
 import com.example.pokemontest.data.Pokemon
 import com.example.pokemontest.databinding.ItemPokemonBinding
 
-class AdapterListPokemon(var list: List<Pokemon>) :
+class AdapterListPokemon :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+    var list: MutableList<Pokemon> = mutableListOf()
     private lateinit var context: Context
     var onItemClick: ((Pokemon) -> Unit)? = null
 
@@ -30,12 +30,16 @@ class AdapterListPokemon(var list: List<Pokemon>) :
         (holder as ItemViewHolder).bind(list[position], context)
     }
 
+    fun updateList(pokemonList: List<Pokemon>?) {
+        pokemonList?.let { list.addAll(it) }
+        notifyDataSetChanged()
+    }
+
     inner class ItemViewHolder(private val binding: ItemPokemonBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pokemon: Pokemon, context: Context) {
             Glide.with(context).load(pokemon.details?.sprites?.frontDefault).into(binding.imageView)
             binding.name.text = pokemon.name
-
             binding.root.setOnClickListener {
                 onItemClick?.invoke(list[adapterPosition])
             }

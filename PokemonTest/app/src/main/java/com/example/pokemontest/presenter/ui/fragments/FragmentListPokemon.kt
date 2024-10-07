@@ -32,19 +32,22 @@ class FragmentListPokemon: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentListPokemonBinding.inflate(inflater, container, false)
+        adapter = AdapterListPokemon()
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getListPokemon(offset)
+        binding.recyclerView.adapter = adapter
+
         setupObservers()
     }
 
     private fun setupObservers() {
         viewModel.currentList.observe(viewLifecycleOwner) { pokemonList ->
-            adapter = AdapterListPokemon(pokemonList)
-            binding.recyclerView.adapter = adapter
+            adapter.updateList(pokemonList)
             adapter.onItemClick = { pokemon ->
                 val bundle = Bundle()
                 bundle.putParcelable(KEY_POKEMON_DETAIL, pokemon.details)
