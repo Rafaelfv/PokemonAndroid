@@ -6,6 +6,13 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="timeout_error_prompt">Timeout error</string>
+    <string name="time_out_error_message">time_out_error_message</string>
+    <string name="no_connection">no_connection</string>
+    <string name="no_conexion_prompt">no_conexion_prompt</string>
+    <string name="error_service">error_service</string>
+    <string name="unknown_error_prompt">unknown_error_prompt</string>
+    <string name="average_error_message">average_error_message</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

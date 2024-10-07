@@ -9,7 +9,10 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.example.pokemontest.databinding.ActivityMainBinding
+import com.example.pokemontest.presenter.ui.FragmentListPokemon
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +27,15 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        setFragment(FragmentListPokemon())
     }
+
+    private fun setFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.content_main, fragment, fragment.javaClass.name)
+            .addToBackStack(fragment.javaClass.name)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit()
+    }
+
 
 }
