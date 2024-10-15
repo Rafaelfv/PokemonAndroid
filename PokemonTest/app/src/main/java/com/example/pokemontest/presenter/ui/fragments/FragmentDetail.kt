@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.pokemontest.data.ResponsePokemonDetails
 import com.example.pokemontest.databinding.FragmentPokemonDetailBinding
 import com.example.pokemontest.utils.Constants.Companion.KEY_POKEMON_DETAIL
+import com.example.pokemontest.utils.Constants.Companion.KEY_POKEMON_DETAIL_ID
 
 class FragmentDetail : Fragment() {
 
@@ -17,7 +18,7 @@ class FragmentDetail : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pokemonDetails = arguments?.getParcelable(KEY_POKEMON_DETAIL)
+        pokemonDetails = arguments?.getParcelable(KEY_POKEMON_DETAIL_ID)
     }
 
     override fun onCreateView(
@@ -32,7 +33,7 @@ class FragmentDetail : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (pokemonDetails != null) {
-            pokemonDetails.apply {
+            /*pokemonDetails.apply {
                 Glide.with(requireContext()).load(this?.sprites?.frontDefault)
                     .into(binding.imageView)
                 binding.name.text = this?.name
@@ -40,6 +41,8 @@ class FragmentDetail : Fragment() {
                 binding.height.text = this?.height.toString()
                 binding.type.text = this?.types?.first()?.type?.name
             }
+
+             */
         }
     }
 

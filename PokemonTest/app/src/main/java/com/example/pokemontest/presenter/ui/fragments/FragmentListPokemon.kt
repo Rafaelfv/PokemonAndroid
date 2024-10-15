@@ -1,20 +1,21 @@
 package com.example.pokemontest.presenter.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.pokemontest.R
 import com.example.pokemontest.databinding.FragmentListPokemonBinding
 import com.example.pokemontest.presenter.ui.adapters.AdapterListPokemon
 import com.example.pokemontest.presenter.viewmodels.FragmentListViewModel
 import com.example.pokemontest.utils.Constants.Companion.KEY_POKEMON_DETAIL
-import javax.inject.Inject
+import com.example.pokemontest.utils.Constants.Companion.KEY_POKEMON_DETAIL_ID
+import kotlinx.coroutines.launch
 
 class FragmentListPokemon : Fragment() {
 
@@ -23,7 +24,7 @@ class FragmentListPokemon : Fragment() {
     private lateinit var binding: FragmentListPokemonBinding
 
 
-     private val viewModel: FragmentListViewModel by viewModels()
+    private val viewModel: FragmentListViewModel by viewModels()
     private lateinit var adapter: AdapterListPokemon
 
 
@@ -60,19 +61,43 @@ class FragmentListPokemon : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.currentList.observe(viewLifecycleOwner) { pokemonList ->
-            binding.progressCircular.visibility = View.GONE
-            adapter.updateList(pokemonList)
-            adapter.notifyDataSetChanged()
 
-            adapter.onItemClick = { pokemon ->
-                val bundle = Bundle()
-                bundle.putParcelable(KEY_POKEMON_DETAIL, pokemon.details)
-                val fragment = FragmentDetail()
-                fragment.arguments = bundle
-                goToDetailsFragment(fragment)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collect { state ->
+
+                    binding.progressCircular.visibility = if (state.loading) View.VISIBLE else View.GONE
+                    adapter.updateList(state.pokemonServiceList)
+                    adapter.notifyDataSetChanged()
+                    adapter.onItemClick = { pokemon ->
+                        val bundle = Bundle()
+                        bundle.putInt(KEY_POKEMON_DETAIL_ID, pokemon.id)
+                        val fragment = FragmentDetail()
+                        fragment.arguments = bundle
+                        goToDetailsFragment(fragment)
+                    }
+                }
             }
         }
+
+        /**
+         * Para los state flows cambia en la forma de observar las variables
+         *
+
+        viewModel.currentList.observe(viewLifecycleOwner) { pokemonList ->
+        binding.progressCircular.visibility = View.GONE
+        adapter.updateList(pokemonList)
+        adapter.notifyDataSetChanged()
+
+        adapter.onItemClick = { pokemon ->
+        val bundle = Bundle()
+        bundle.putParcelable(KEY_POKEMON_DETAIL, pokemon.details)
+        val fragment = FragmentDetail()
+        fragment.arguments = bundle
+        goToDetailsFragment(fragment)
+        }
+         */
+
     }
 
     private fun goToDetailsFragment(fragment: Fragment) {

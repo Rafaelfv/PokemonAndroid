@@ -1,6 +1,6 @@
 package com.example.pokemontest.domain
 
-import com.example.pokemontest.data.Pokemon
+import com.example.pokemontest.data.PokemonService
 import com.example.pokemontest.data.ResponsePokemonDetails
 import com.example.pokemontest.data.repository.ListPokemonRepository
 import com.example.pokemontest.utils.Fault
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class ListPokemonUseCase @Inject constructor(private val repository: ListPokemonRepository) {
 
-    suspend fun getListPokemon(offset: String): NewResource<MutableList<Pokemon>?> {
+    suspend fun getListPokemon(offset: String): NewResource<MutableList<PokemonService>?> {
         return try {
             val response = repository.getListPokemon(offset)
             if (!response.isNullOrEmpty()) {

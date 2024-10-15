@@ -1,10 +1,11 @@
 package com.example.pokemontest.data
 
-import com.google.gson.annotations.SerializedName
 
-data class Pokemon(
-    @SerializedName("name") var name: String,
-    @SerializedName("url") var url: String?,
-    var details: ResponsePokemonDetails? = null
-
+data class Pokemon (
+    var id: Int = 0,
+    var name: String,
+    var height: Int,
+    var weight: Int,
+    var frontDefault: String?,
+    var type: String?
 )

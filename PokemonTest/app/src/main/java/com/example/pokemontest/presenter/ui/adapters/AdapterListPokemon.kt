@@ -36,14 +36,14 @@ class AdapterListPokemon :
         }
     }
 
-    fun updateList(pokemonList: List<Pokemon>?) {
-        pokemonList?.let { list.addAll(it) }
+    fun updateList(pokemonList: List<Pokemon>) {
+        list.addAll(pokemonList)
     }
 
     inner class ItemViewHolder(private val binding: ItemPokemonBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pokemon: Pokemon, context: Context) {
-            Glide.with(context).load(pokemon.details?.sprites?.frontDefault).into(binding.imageView)
+            Glide.with(context).load(pokemon.frontDefault).into(binding.imageView)
             binding.name.text = pokemon.name
             binding.root.setOnClickListener {
                 onItemClick?.invoke(list[adapterPosition])
