@@ -11,7 +11,6 @@ import com.example.pokemontest.presenter.ui.fragments.FragmentListPokemon
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,8 +20,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-
-        setFragment(FragmentListPokemon())
+        if (savedInstanceState == null) {
+            setFragment(FragmentListPokemon())
+        }
     }
 
     private fun setFragment(fragment: Fragment) {
@@ -31,6 +31,5 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(fragment.javaClass.name)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit()
     }
-
 
 }

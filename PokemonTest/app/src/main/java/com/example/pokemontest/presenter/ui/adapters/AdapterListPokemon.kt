@@ -38,7 +38,6 @@ class AdapterListPokemon :
 
     fun updateList(pokemonList: List<Pokemon>?) {
         pokemonList?.let { list.addAll(it) }
-        notifyDataSetChanged()
     }
 
     inner class ItemViewHolder(private val binding: ItemPokemonBinding) :

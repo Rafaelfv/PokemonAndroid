@@ -2,7 +2,10 @@ package com.example.pokemontest.presenter.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.pokemontest.data.Pokemon
 import com.example.pokemontest.domain.ListPokemonUseCase
 import com.example.pokemontest.utils.Status
@@ -26,4 +29,10 @@ class FragmentListViewModel : BaseViewmodel() {
         }
     }
 
+}
+
+class FragmentListViewModelFactory:  ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+        return FragmentListViewModel() as T
+    }
 }

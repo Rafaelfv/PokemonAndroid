@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.pokemontest.R
 import com.example.pokemontest.databinding.FragmentListPokemonBinding
@@ -20,14 +22,13 @@ class FragmentListPokemon : Fragment() {
     private var counter = 1
     private lateinit var binding: FragmentListPokemonBinding
 
-    @Inject
-    lateinit var viewModel: FragmentListViewModel
+
+     private val viewModel: FragmentListViewModel by viewModels()
     private lateinit var adapter: AdapterListPokemon
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[FragmentListViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -43,12 +44,12 @@ class FragmentListPokemon : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getListPokemon(offset*counter)
+        getListPokemon(offset * counter)
         binding.recyclerView.adapter = adapter
 
         adapter.onBottomReached = {
             counter++
-            getListPokemon(offset*counter)
+            getListPokemon(offset * counter)
         }
         setupObservers()
     }
@@ -62,6 +63,8 @@ class FragmentListPokemon : Fragment() {
         viewModel.currentList.observe(viewLifecycleOwner) { pokemonList ->
             binding.progressCircular.visibility = View.GONE
             adapter.updateList(pokemonList)
+            adapter.notifyDataSetChanged()
+
             adapter.onItemClick = { pokemon ->
                 val bundle = Bundle()
                 bundle.putParcelable(KEY_POKEMON_DETAIL, pokemon.details)
