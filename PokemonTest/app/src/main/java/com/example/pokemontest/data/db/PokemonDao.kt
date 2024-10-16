@@ -15,4 +15,6 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemons")
     fun getAllPokemons(): List<PokemonDb>
 
+    @Query("SELECT * FROM pokemons where id=:id")
+    fun getPokemonById(id: Int): PokemonDb
 }

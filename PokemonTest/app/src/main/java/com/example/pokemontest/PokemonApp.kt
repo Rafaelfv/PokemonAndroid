@@ -6,6 +6,7 @@ import com.example.pokemontest.data.db.AppDatabase
 import com.example.pokemontest.injection.ComponentInjector
 import com.example.pokemontest.injection.DaggerComponentInjector
 import com.example.pokemontest.injection.NetworkModule
+import com.example.pokemontest.injection.RoomModule
 
 class PokemonApp: Application() {
 
@@ -16,7 +17,8 @@ class PokemonApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        component = DaggerComponentInjector.builder().networkModule(NetworkModule).build()
+        component = DaggerComponentInjector.builder().networkModule(NetworkModule).roomModule(
+            RoomModule(this)).build()
         database = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,

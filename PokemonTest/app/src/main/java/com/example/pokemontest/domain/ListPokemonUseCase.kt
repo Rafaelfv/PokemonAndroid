@@ -1,5 +1,6 @@
 package com.example.pokemontest.domain
 
+import com.example.pokemontest.data.Pokemon
 import com.example.pokemontest.data.PokemonService
 import com.example.pokemontest.data.ResponsePokemonDetails
 import com.example.pokemontest.data.repository.ListPokemonRepository
@@ -9,15 +10,10 @@ import javax.inject.Inject
 
 class ListPokemonUseCase @Inject constructor(private val repository: ListPokemonRepository) {
 
-    suspend fun getListPokemon(offset: String): NewResource<MutableList<PokemonService>?> {
+    suspend fun getListPokemon(offset: String): NewResource<List<Pokemon>?> {
         return try {
             val response = repository.getListPokemon(offset)
             if (!response.isNullOrEmpty()) {
-                response.forEach { pokemonItemList ->
-                    getPokemonDetails(pokemonItemList.name) { pokemonDetail ->
-                        pokemonItemList.details = pokemonDetail
-                    }
-                }
                 NewResource.success(response)
             } else {
                 NewResource.error(
@@ -30,16 +26,6 @@ class ListPokemonUseCase @Inject constructor(private val repository: ListPokemon
             NewResource.error(fault, null)
         } finally {
             NewResource.finish(null)
-        }
-    }
-
-    private suspend fun getPokemonDetails(
-        name: String,
-        detail: (pokemonDetail: ResponsePokemonDetails) -> Unit
-    ) {
-        val detailRequest = repository.getPokemonDetails(name)
-        if (detailRequest != null){
-            detail(detailRequest)
         }
     }
 

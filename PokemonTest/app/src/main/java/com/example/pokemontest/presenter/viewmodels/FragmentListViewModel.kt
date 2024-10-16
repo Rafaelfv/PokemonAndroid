@@ -30,7 +30,7 @@ class FragmentListViewModel : BaseViewmodel() {
             val response = listPokemonUseCase.getListPokemon(offset.toString())
             if (response.status == Status.SUCCESS) {
                 _state.update { it.copy(loading = false) }
-                _state.update { it.copy(pokemonServiceList = response.data?.toPokemonList()?: emptyList()) }
+                _state.update { it.copy(pokemonServiceList = response.data ?: emptyList()) }
             }
         }
     }
