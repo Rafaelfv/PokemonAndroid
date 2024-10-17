@@ -16,7 +16,7 @@ class RoomModule(applicationContext: Application) {
         applicationContext,
         AppDatabase::class.java,
         "my_database"
-    ).build()
+    ).allowMainThreadQueries().build()
 
     @Provides
     @Singleton
