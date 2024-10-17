@@ -65,10 +65,8 @@ class FragmentListPokemon : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
-
                     binding.progressCircular.visibility = if (state.loading) View.VISIBLE else View.GONE
-                    adapter.updateList(state.pokemonServiceList)
-                    adapter.notifyDataSetChanged()
+                    adapter.submitList(state.pokemonServiceList)
                     adapter.onItemClick = { pokemon ->
                         val bundle = Bundle()
                         bundle.putInt(KEY_POKEMON_DETAIL_ID, pokemon.id)
