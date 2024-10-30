@@ -61,7 +61,6 @@ class FragmentListPokemon : Fragment() {
     }
 
     private fun setupObservers() {
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->

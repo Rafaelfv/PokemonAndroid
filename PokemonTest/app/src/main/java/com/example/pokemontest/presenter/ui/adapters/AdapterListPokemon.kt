@@ -35,6 +35,10 @@ class AdapterListPokemon :
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+    }
+
     inner class ItemViewHolder(private val binding: ItemPokemonBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pokemon: Pokemon, context: Context) {

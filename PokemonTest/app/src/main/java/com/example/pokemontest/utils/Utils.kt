@@ -38,3 +38,16 @@ fun List<PokemonService>.toPokemonList(): List<Pokemon> {
     }
     return list
 }
+
+
+enum class Type(id: Int) {
+    FUERTE(0),
+    DEBIL(1)
+}
+
+
+sealed class Planet(id: Int) {
+    object Marte: Planet(1)
+    class Basic(id: Int): Planet(2)
+    class PlanetWithSatellites(val id: Int, val list: List<String>): Planet(2)
+}
