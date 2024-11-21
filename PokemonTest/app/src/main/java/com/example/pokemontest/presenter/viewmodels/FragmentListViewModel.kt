@@ -26,7 +26,9 @@ class FragmentListViewModel : BaseViewmodel() {
 
     fun getListPokemon(offset: Int) {
         viewModelScope.launch {
-            _state.update { it.copy(loading = true) }
+            _state.update {
+                it.copy(loading = true)
+            }
             val response = listPokemonUseCase.getListPokemon(offset.toString())
             if (response.status == Status.SUCCESS) {
                 _state.update { it.copy(loading = false) }

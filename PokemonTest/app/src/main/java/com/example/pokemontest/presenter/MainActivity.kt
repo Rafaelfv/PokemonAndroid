@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.pokemontest.R
 import com.example.pokemontest.databinding.ActivityMainBinding
 import com.example.pokemontest.presenter.ui.fragments.FragmentListPokemon
+import com.example.pokemontest.utils.Planet
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +23,21 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         if (savedInstanceState == null) {
             setFragment(FragmentListPokemon())
+        }
+
+        val a = Planet.Marte
+        val b = Planet.Basic(2)
+        val c = Planet.PlanetWithSatellites(2, listOf("sa1","sa2"))
+
+
+
+    }
+
+    private fun getPlanet (planet: Planet) {
+        when(planet){
+            is Planet.Marte -> {}
+            is Planet.Basic -> {}
+            is Planet.PlanetWithSatellites -> {}
         }
     }
 

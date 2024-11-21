@@ -71,4 +71,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
 
+
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+
 }
