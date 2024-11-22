@@ -160,7 +160,7 @@ class Algoritmos {
 
     @Test
     fun mountainAlgorithm() {
-        val list = listOf(1, 8, 6, 2, 5, 7)
+        val list = listOf(1, 8,8, 6, 2, 5, 7)
         val list2 = listOf(1, 8, 6)
         val list3 = listOf(1, 1, 6)
         val isMountain = isMountainList(list)
@@ -172,6 +172,9 @@ class Algoritmos {
     private fun isMountainList(list: List<Int>): Boolean {
         if (list.size < 3) return false
         val maxValue = list.max()
+        if (list.count { it == maxValue } > 1) {
+            return false
+        }
         val indexMax = list.indexOf(maxValue)
         val subListAscending = list.subList(0, indexMax)
         val subListDescending = list.subList(indexMax + 1, list.size)
@@ -203,7 +206,7 @@ class Algoritmos {
         var minBoats = 0
         var i = 0
         var j = listWeights.size - 1
-        listWeights.sorted()
+
         while (j >= i) {
             if (listWeights[i] + listWeights[j] <= maxWeight) {
                 i++
@@ -394,27 +397,56 @@ class Algoritmos {
         val isBinaryTwo = getIsBinary(listTwo)
 
         if (isBinaryOne && isBinaryTwo) {
-            val getDecimal = getDecimalNumber(listOne)
+            val getDecimal1 = getDecimalNumber(listOne)
+            val getDecimal2 = getDecimalNumber(listTwo)
+            val a = 0
         }
 
     }
 
-    private fun getDecimalNumber(list: List<Char>): Int {
+    private fun getDecimalNumber(list: List<Char>): Long {
         val n = list.size
-        val listIncremental = mutableListOf<Long>()
+        var listIncremental = mutableListOf<Long>()
         for(i in 0 .. n) {
             listIncremental.add(2.0.pow(i).toLong())
         }
         val listSum = mutableListOf<Long>()
-        list.forEachIndexed { index, char ->
+        list.reversed().forEachIndexed { index, char ->
             listSum.add(listIncremental[index]*(char.toString().toInt()))
         }
 
-        return 0
+        return listSum.sum()
     }
 
     private fun getIsBinary(listOne: List<Char>) =
         listOne.find { it != '0' && it != '1' } == null
 
 
+
+    @Test
+    fun twoSum() {
+        val list = listOf(0, 1, 2, 4, 5, 6, 7, 8, 9)
+        val target = 15
+
+        var i = 0
+        var j = 1
+        for (i in list.indices) {
+
+            for (j in list.indices) {
+                if (list[i] + list[j] == target) {
+                    val a = 0
+                }
+            }
+            j++
+        }
+    }
+
+    @Test
+    fun findIfContainsDuplicated() {
+        val list = listOf(0, 1, 2, 4, 5, 6, 4, 7, 8, 9)
+
+        val mapGroup = list.groupBy { it }
+        val duplicated = mapGroup.values.find { it.size>1 }
+        val a = 0
+    }
 }
